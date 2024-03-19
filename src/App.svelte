@@ -3,12 +3,13 @@
   import Scrolly from "./Scrolly.svelte";
   import Map from "./Map.svelte";
   import { step } from "./store/step";
+  import { marked } from "marked";
 
   /* By Connor Rothschild https://twitter.com/CL_Rothschild
 	Scrollytelling component from Russell Goldenberg https://twitter.com/codenberg/status/1432774653139984387 */
 
   // read config
-  const promise = fetch("http://localhost:5173/storyBoard.yml").then(
+  const promise = fetch("/example/storyBoard.yml").then(
     (response) => response.text().then((text) => parseYaml(text))
   );
 </script>
@@ -33,7 +34,7 @@
         <Scrolly bind:value={$step}>
           {#each config.steps as text, i}
             <div class="step" class:active={$step === i}>
-              <div class="step-content">{@html text.content}</div>
+              <div class="step-content">{@html marked.parse(text.content) }</div>
             </div>
           {/each}
           <div class="spacer" />
@@ -44,6 +45,11 @@
       </div>
     </div>
   {/await}
+  <!-- <div class="hero">
+      <h2>
+        End of story
+      </h2>
+  </div> -->
 </section>
 
 <style>
@@ -51,6 +57,10 @@
     overflow-x: hidden;
     font-family: "Nanum Myeongjo", normal;
     background: #ffffff;
+  }
+
+  :global(.step-content img) {
+    width: 100%;
   }
 
   .hero {
@@ -117,6 +127,7 @@
     margin: auto;
     max-width: 500px;
   }
+  
 
   .step.active .step-content {
     background: white;

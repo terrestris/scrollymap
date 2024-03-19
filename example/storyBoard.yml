@@ -1,0 +1,29 @@
+title: Das Wattenmeer
+subTitle: Meeresgrund trifft Horizont...
+steps:
+  -   content: Der größte Nationalpark zwischen dem Nordkap und Sizilien
+      center: [948776, 7300390]
+      zoom: 9
+      baseLayer: topplus-light
+      topicLayer:
+        url: https://geoserver.mundialis.de/geoserver/wms
+        layers: sentinelMosaic:1_040302
+  -   content: "Ältestes Naturschutzgebiet Schleswig-Holsteins: **Sylt Nord** und **Morsum Kliff** <p> ![Morsum Kliff](https://upload.wikimedia.org/wikipedia/commons/8/8a/Sylt_beach.jpg)"
+      center: [936709,7370430]
+      zoom: 14
+      baseLayer: topplus-light
+      topicLayer:
+        url: https://geoserver.mundialis.de/geoserver/wms
+        layers: sentinelMosaic:1_040302
+      # highlight:
+      #     coordinates: [3853151, -26761]
+      #     strokeColor: purple
+      #     strokeWidth: 2
+      #     name: Kisumu
+  -   content: "15 km lang und 1,5 km breit: Der Amrumer Kniepsand <p> ![Bild](https://upload.wikimedia.org/wikipedia/commons/0/01/Vord%C3%BCnen_auf_dem_Kniepsand_%28Amrum%29.jpg)"
+      center: [927027,7292103]
+      zoom: 12
+      baseLayer: topplus-light
+      topicLayer:
+        url: https://geoserver.mundialis.de/geoserver/wms
+        layers: sentinelMosaic:1_8A1104
