@@ -44,6 +44,7 @@
         });
         map = new Map({
             controls: [],
+            interactions: [],
             target: node.id,
             layers: [baseLayer],
             view: new View({
