@@ -14,8 +14,11 @@
   );
 </script>
 
-<section>
-  {#await promise then config}
+{#await promise then config}
+  <div class="map">
+    <Map {config} />
+  </div>
+  <section>
     <div class="hero">
       {#if config.title}
         <h1>
@@ -40,17 +43,14 @@
           <div class="spacer" />
         </Scrolly>
       </div>
-      <div class="sticky">
-        <Map {config} />
-      </div>
     </div>
-  {/await}
-  <!-- <div class="hero">
+    <!-- <div class="hero">
       <h2>
         End of story
       </h2>
-  </div> -->
-</section>
+    </div> -->
+  </section>
+{/await}
 
 <style>
   :global(body) {
@@ -90,14 +90,15 @@
     height: 40vh;
   }
 
-  .sticky {
-    position: sticky;
-    top: 5vh;
-    flex: 1 1 70%;
-    width: 70%;
+  .map {
+    position: fixed;
+    top: 20vh;
+    width: calc(100vw - 32px); /** body padding + scrollbar width */
+    height: calc(80vh - 16px);
   }
 
   .section-container {
+    width: 30vw;
     margin-top: 1em;
     text-align: center;
     transition: background 100ms;
@@ -127,15 +128,14 @@
     margin: auto;
     max-width: 500px;
   }
-  
+
 
   .step.active .step-content {
     background: white;
     color: black;
   }
 
-  .steps-container,
-  .sticky {
+  .steps-container {
     height: 100%;
   }
 
@@ -148,10 +148,6 @@
   @media screen and (max-width: 768px) {
     .section-container {
       flex-direction: column-reverse;
-    }
-    .sticky {
-      width: 95%;
-      margin: auto;
     }
   }
 </style>
