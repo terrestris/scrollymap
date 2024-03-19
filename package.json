@@ -16,12 +16,13 @@
     "d3-scale": "latest",
     "svelte": "^3.55.0",
     "svelte-check": "^3.0.0",
-    "svelte-preprocess": "^5.0.0",
+    "svelte-preprocess": "^5.1.3",
     "tslib": "^2.5.0",
     "typescript": "^4.9.0"
   },
   "dependencies": {
     "@terrestris/ol-util": "^12.0.1",
+    "marked": "^12.0.1",
     "ol": "^7",
     "sirv-cli": "^2.0.0",
     "vite": "^4.4.9",

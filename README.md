@@ -2,16 +2,26 @@
 
 ## Purpose
 
+Create a scrollymap with a simple configuration set.
+
+## Features
+
+- Basemaps
+- Topic layers
+- Highlight ares (rectangle)
+- Showm markdown Content
+<!-- todo: charts -->
+
 ## Get started
 
 Install the dependencies...
 
 ```bash
-npm i
+bun i
 ```
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 ## Building and running in production mode
@@ -19,7 +29,7 @@ npm run dev
 To create an optimised version of the app:
 
 ```bash
-npm run build
+bun run build
 ```
 
 ## Configuration
