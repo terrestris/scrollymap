@@ -45,6 +45,9 @@
                 {:else if text.chart}
                   <Chart {config} />
                 {/if}
+                {#if text.attribution}
+                  <span class="attribution">{@html text.attribution}</span>
+                {/if}
               </div><p/>
             </div>
           {/each}
@@ -68,6 +71,10 @@
 
   :global(.step-content img) {
     width: 100%;
+  }
+
+  :global(.attribution) {
+    font-size: 0.75rem;
   }
 
   .hero {

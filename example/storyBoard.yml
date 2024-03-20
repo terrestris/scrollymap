@@ -1,19 +1,22 @@
 title: Das Wattenmeer
 subTitle: Meeresgrund trifft Horizont...
 steps:
-  -   content: "Der größte Nationalpark zwischen dem Nordkap und Sizilien"
+  -   content: "Der größte Nationalpark zwischen Nordkap und Sizilien"
       center: [948776, 7300390]
       zoom: 9
       baseLayer: sentinel
   -   content: "Ältestes Naturschutzgebiet Schleswig-Holsteins: **Sylt Nord** und **Morsum Kliff** <p> ![Morsum Kliff](https://upload.wikimedia.org/wikipedia/commons/8/8a/Sylt_beach.jpg)"
+      attribution: "By Sean O&#039;Flaherty at en.wikipedia - Own work (Original text: self-made), CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=6857259"
       center: [936709,7370430]
       zoom: 13
       baseLayer: sentinel
   -   content: "![Morsum Kliff](https://upload.wikimedia.org/wikipedia/commons/a/af/Sylt_K%C3%BCste_Strand_D%C3%BCnen.JPG)"
+      attribution: "Von Nordenfan - Eigenes Werk, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=40101152"
       center: [928228,7334339]
       zoom: 11
       baseLayer: sentinel
   -   content: "15 km lang und 1,5 km breit: Der Amrumer Kniepsand <p> ![Bild](https://upload.wikimedia.org/wikipedia/commons/0/01/Vord%C3%BCnen_auf_dem_Kniepsand_%28Amrum%29.jpg)"
+      attribution: "Von Jörg Braukmann - Eigenes Werk, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=78665129"
       center: [927027,7292103]
       zoom: 12
       baseLayer: sentinel
@@ -46,6 +49,7 @@ steps:
         attribution: mundialis - Contains modified Copernicus Sentinel data (2015-2017)/ESA
       rotation: 90
   - content: "Süderoogsand ![Süderoogsand](https://upload.wikimedia.org/wikipedia/commons/e/e7/13-09-29-nordfriesisches-wattenmeer-RalfR-19.jpg)"
+    attribution: "Von Ralf Roletschek - Eigenes Werk, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=28842149"
     center: [945258,7256627]
     zoom: 12
     baseLayer: sentinel
@@ -61,7 +65,7 @@ steps:
       strokeColor: red
       strokeWidth: 3
       name: Süderoogsang      
-  - content: DataLayer
+  - content: DataLayer (Clustering)
     center: [927027,7292103]
     zoom: 10
     baseLayer: sentinel
