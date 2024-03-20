@@ -12,6 +12,8 @@
         updateHighlightLayer,
     } from "./util/highlightLayer";
     import { updateView } from "./util/mapViewUtil";
+    import { initDataLayer, updateDataLayer } from "./util/dataLayer";
+    import Attribution from "ol/control/Attribution";
 
     // Exports
     let mapId: string = "20";
@@ -21,6 +23,7 @@
     let map = null;
     let topicLayer;
     let highlightLayer;
+    let dataLayer;
 
     // functions
     const setupMap = (node) => {
@@ -35,15 +38,18 @@
         // });
         const baseLayer = new TileLayer({
             source: new TileWMS({
-                url: "https://sgx.geodatenzentrum.de/wms_topplus_open",
+                url: "http://localhost:8080/service",
                 params: {
-                    LAYERS: "web_light",
+                    LAYERS: "sentinel",
                     version: "1.3.0",
                 },
+                attributions: "mundialis - Contains modified Copernicus Sentinel data (2015-2017)/ESA"
             }),
         });
         map = new Map({
-            controls: [],
+            controls: [new Attribution({
+                collapsed: false
+            })],
             interactions: [],
             target: node.id,
             layers: [baseLayer],
@@ -72,6 +78,10 @@
                 highlightLayer = initHighlightLayer();
                 map.addLayer(highlightLayer);
             }
+            if (config.steps.some((s) => s.dataLayer)) {
+                dataLayer = initDataLayer();
+                map.addLayer(dataLayer);
+            }
         }
     }
     step.subscribe((stepValue) => {
@@ -96,6 +106,14 @@
 					highlightLayer.setVisible(false);
 				}
 			}
+            if (currentConfig.dataLayer) {
+                updateDataLayer(currentConfig, dataLayer);
+                dataLayer.setVisible(true);
+            } else {
+				if (dataLayer) {
+					dataLayer.setVisible(false);
+				}
+			}
         }
     });
 </script>
@@ -105,6 +123,6 @@
 <style>
     .map {
         width: 100%;
-        height: 800px;
+        height: 100%;
     }
 </style>

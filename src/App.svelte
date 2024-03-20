@@ -56,9 +56,12 @@
 {/await}
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Rosario:ital,wght@0,300..700;1,300..700&display=swap');
+
   :global(body) {
     overflow-x: hidden;
-    font-family: "Nanum Myeongjo", normal;
+    font-family: "Rosario", sans-serif;
+    font-optical-sizing: auto;
     background: #ffffff;
     margin: 0;
   }
@@ -120,7 +123,7 @@
   }
 
   .step-content {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     background: whitesmoke;
     color: #ccc;
     border-radius: 5px;
@@ -131,7 +134,7 @@
     transition: background 500ms ease;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
     text-align: left;
-    width: 75%;
+    /* width: 75%; */
     margin: auto;
     max-width: 500px;
   }

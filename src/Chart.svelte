@@ -115,7 +115,7 @@
 
 <style>
     .chart {
-        width: 100%;
+        width: 500px;
         height: 800px;
         background: rgba(255, 255, 255, 0.9);
     }

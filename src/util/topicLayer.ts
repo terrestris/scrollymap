@@ -8,6 +8,7 @@ export const updateTopicLayer = (config, topicLayer) => {
     params.version = "1.3.0";
     topicLayer.getSource().setUrl(config.url);
     topicLayer.getSource().updateParams(params);
+    topicLayer.getSource().setAttributions(config.attribution);
 }
 export const initTopicLayer = () => {
     return new TileLayer({

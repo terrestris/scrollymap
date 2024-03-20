@@ -8,6 +8,7 @@ import { fromExtent } from "ol/geom/Polygon";
 import Style from "ol/style/Style";
 import Stroke from "ol/style/Stroke";
 import Fill from "ol/style/Fill";
+import Text from "ol/style/Text";
 
 export const updateHighlightLayer = (config, highlightLayer) => {
     const geom = new OlPoint(config.coordinates);
@@ -25,6 +26,17 @@ export const updateHighlightLayer = (config, highlightLayer) => {
             fill: new Fill({
                 color: "rgba(0, 0, 255, 0.1)",
             }),
+            text: new Text({
+                text: config.name,
+                font: '25px Rosario,sans-serif',
+                fill: new Fill({
+                  color: '#000',
+                }),
+                stroke: new Stroke({
+                  color: '#fff',
+                  width: 4,
+                }),
+            })
         }),
     ];
     feature.setStyle(styles);
