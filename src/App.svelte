@@ -2,6 +2,7 @@
   import { parse as parseYaml } from "yaml";
   import Scrolly from "./Scrolly.svelte";
   import Map from "./Map.svelte";
+  import Chart from "./Chart.svelte";
   import { step } from "./store/step";
   import { marked } from "marked";
 
@@ -9,9 +10,10 @@
 	Scrollytelling component from Russell Goldenberg https://twitter.com/codenberg/status/1432774653139984387 */
 
   // read config
-  const promise = fetch("/example/storyBoard.yml").then(
-    (response) => response.text().then((text) => parseYaml(text))
+  const promise = fetch("/example/storyBoard.yml").then((response) =>
+    response.text().then((text) => parseYaml(text)),
   );
+
 </script>
 
 {#await promise then config}
@@ -29,7 +31,7 @@
         <h2>
           {config.subTitle}
         </h2>
-        <hr/>
+        <hr />
       {/if}
     </div>
     <div class="section-container">
@@ -37,18 +39,19 @@
         <Scrolly bind:value={$step}>
           {#each config.steps as text, i}
             <div class="step" class:active={$step === i}>
-              <div class="step-content">{@html marked.parse(text.content) }</div>
+              <div class="step-content">
+                {#if text.content}
+                  {@html marked.parse(text.content)}
+                {:else if text.chart}
+                  <Chart {config} />
+                {/if}
+              </div><p/>
             </div>
           {/each}
           <div class="spacer" />
         </Scrolly>
       </div>
     </div>
-    <!-- <div class="hero">
-      <h2>
-        End of story
-      </h2>
-    </div> -->
   </section>
 {/await}
 
@@ -57,6 +60,7 @@
     overflow-x: hidden;
     font-family: "Nanum Myeongjo", normal;
     background: #ffffff;
+    margin: 0;
   }
 
   :global(.step-content img) {
@@ -70,6 +74,7 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    background: rgba(255,255,255,0.9);
   }
   .hero hr {
     width: 90%;
@@ -92,9 +97,10 @@
 
   .map {
     position: fixed;
-    top: 20vh;
-    width: calc(100vw - 32px); /** body padding + scrollbar width */
-    height: calc(80vh - 16px);
+    /* top: 20vh; */
+    width: calc(100vw); /** body padding + scrollbar width */
+    height: calc(100vh);
+    z-index: -10
   }
 
   .section-container {
@@ -106,10 +112,11 @@
   }
 
   .step {
-    height: 80vh;
+    height: 100vh;
     display: flex;
     place-items: center;
     justify-content: center;
+    flex-direction: column;
   }
 
   .step-content {
@@ -129,7 +136,6 @@
     max-width: 500px;
   }
 
-
   .step.active .step-content {
     background: white;
     color: black;
@@ -137,9 +143,6 @@
 
   .steps-container {
     height: 100%;
-  }
-
-  .steps-container {
     flex: 1 1 30%;
     z-index: 10;
   }

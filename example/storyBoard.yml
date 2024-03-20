@@ -1,7 +1,7 @@
 title: Das Wattenmeer
 subTitle: Meeresgrund trifft Horizont...
 steps:
-  -   content: Der größte Nationalpark zwischen dem Nordkap und Sizilien
+  -   content: "Der größte Nationalpark zwischen dem Nordkap und Sizilien"
       center: [948776, 7300390]
       zoom: 9
       baseLayer: topplus-light
@@ -27,3 +27,14 @@ steps:
       topicLayer:
         url: https://geoserver.mundialis.de/geoserver/wms
         layers: sentinelMosaic:1_8A1104
+  -   center: [957045,7284297]
+      zoom: 11
+      baseLayer: topplus-light
+      chart: 1
+      topicLayer:
+        url: https://mdi-sh.org/geoserver_lkn/Kegelrobben_Ruheplaetze/wms
+        layers: Kegelrobben_Ruheplaetze_ab1989
+  -   content: ""
+      center: [927027,7292103]
+      zoom: 12
+      baseLayer: topplus-light
