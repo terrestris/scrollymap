@@ -1,12 +1,12 @@
-# Scrollymap
+# Scrollymap ✒️🌍
 
 A svelte.js and openlayers based scrolly map application.
 
-## Purpose
+## Purpose 💡
 
 Create a scrollytelling map application with a simple configuration.
 
-## Features
+## Features 🍜
 
 - Basemaps
 - Topic layers
@@ -15,7 +15,9 @@ Create a scrollytelling map application with a simple configuration.
 - charts (echarts)
 - clustering of data point layer
 
-## Get started
+## Development 👨‍💻
+
+[bun.sh](https://bun.sh) is used as bundler (Node.js compatible).  
 
 Install the dependencies...
 
@@ -27,9 +29,9 @@ bun i
 bun run dev
 ```
 
-**Note:** The example configuration (`storyboard.yaml`) requires on a local mapproxy server.
+Open example application `http://localhost:5173/?config=public/storyBoard.yml`.
 
-## Building and running in production mode
+## Building and running in production mode 🏗️
 
 To create an optimised version of the app:
 
@@ -37,6 +39,12 @@ To create an optimised version of the app:
 bun run build
 ```
 
-## Configuration
+Put all files in `dist` on your webserver, or test it locally, e.g. `python3 -m http.server`.
 
-See example: `storyBoard.yml`
+## Configuration ⚙️
+
+See example: `public/storyBoard.yml`.
+
+# Credits
+
+- Russel Goldenberg (https://pudding.cool)
