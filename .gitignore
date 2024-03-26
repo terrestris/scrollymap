@@ -2,7 +2,7 @@
 /public/build/
 dist
 .env
-public/storyBoard-local.yml
+public/storyBoard_local.yml
 
 .DS_Store
 .vscode

@@ -1,11 +1,6 @@
 import OlVectorLayer from "ol/layer/Vector";
 import OlVectorSource from "ol/source/Vector";
-import OlFeature from "ol/Feature";
-import OlPoint from "ol/geom/Point";
 import Cluster from "ol/source/Cluster";
-
-import { buffer } from "ol/extent";
-import { fromExtent } from "ol/geom/Polygon";
 import Circle from "ol/style/Circle";
 import Style from "ol/style/Style";
 import Stroke from "ol/style/Stroke";

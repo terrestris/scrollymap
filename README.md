@@ -31,7 +31,11 @@ Create a scrollytelling map application with a simple configuration.
 
 **Note:** Please consider to cache the layers to archive best performance.
 
-- chart: See `storyBoard.yaml` for an example
+- chart: See `storyBoard.yml` for an example
+- dataLayer:
+    - Cluster point features from a geojson file
+    - Prototype, feel free to contribute!
+    - See `storyBoard.yml` for an example
 
 ## Development 👨‍💻
 
