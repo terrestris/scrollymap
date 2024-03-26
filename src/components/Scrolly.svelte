@@ -1,7 +1,7 @@
 <script>
   /**
 	Scrollytelling component from Russell Goldenberg 
-	https://twitter.com/codenberg/status/1432774653139984387
+  https://svelte.dev/repl/3d3736e634c9404ea8ec2ef7b87e2053?version=3.42.4
 	
    * This component manages which item is most in view for scroll triggering
    * example:
@@ -31,7 +31,6 @@
   $: top, bottom, update();
 
   const update = () => {
-    console.log("update");
     if (!nodes.length) return;
     nodes.forEach(createObserver);
   };

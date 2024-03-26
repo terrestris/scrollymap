@@ -1,0 +1,181 @@
+title: Das Wattenmeer
+subTitle: Meeresgrund trifft Horizont...
+steps:
+  - content: "Der größte Nationalpark zwischen Nordkap und Sizilien"
+    center: [948776, 7300390]
+    zoom: 9
+    baseLayer: osm
+  - content: "Ältestes Naturschutzgebiet Schleswig-Holsteins: **Sylt Nord** und **Morsum Kliff** <p> ![Morsum Kliff](https://upload.wikimedia.org/wikipedia/commons/8/8a/Sylt_beach.jpg)"
+    attribution: "By Sean O&#039;Flaherty at en.wikipedia - Own work (Original text: self-made), CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=6857259"
+    center: [936709, 7370430]
+    zoom: 13
+    baseLayer: sen2europe
+  - content: "![Morsum Kliff](https://upload.wikimedia.org/wikipedia/commons/a/af/Sylt_K%C3%BCste_Strand_D%C3%BCnen.JPG)"
+    attribution: "Von Nordenfan - Eigenes Werk, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=40101152"
+    center: [928228, 7334339]
+    zoom: 11
+    baseLayer: sen2europe
+  - content: "15 km lang und 1,5 km breit: Der Amrumer Kniepsand <p> ![Bild](https://upload.wikimedia.org/wikipedia/commons/0/01/Vord%C3%BCnen_auf_dem_Kniepsand_%28Amrum%29.jpg)"
+    attribution: "Von Jörg Braukmann - Eigenes Werk, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=78665129"
+    center: [927027, 7292103]
+    zoom: 12
+    baseLayer: sen2europe
+    highlight:
+      coordinates: [928718, 7294789]
+      strokeColor: red
+      strokeWidth: 3
+      name: Amrum
+    topicLayer:
+      url: https://geoserver.mundialis.de/geoserver/wms
+      layers: sentinel-rgbMosaic:art_8A1104
+      attribution: mundialis - Contains modified Copernicus sentinel-rgb data (2015-2017)/ESA
+  - center: [957045, 7284297]
+    zoom: 11
+    baseLayer: sen2europe
+    chart:
+      type: bar
+      title: "Bestände von Seehunden und Kegelrobben \n (LKN-NPV 1989-2022)"
+      # Data: https://www.mdi-sh.org/geoserver_lkn/Robben-Monitoring_Zaehldaten/wfs?version=2.0.0
+      xAxisData:
+        - type: category
+          data:
+            [
+              1989,
+              1990,
+              1991,
+              1992,
+              1993,
+              1994,
+              1995,
+              1996,
+              1997,
+              1998,
+              1999,
+              2000,
+              2001,
+              2002,
+              2003,
+              2004,
+              2005,
+              2006,
+              2007,
+              2008,
+              2009,
+              2010,
+              2011,
+              2012,
+              2013,
+              2014,
+              2015,
+              2016,
+              2017,
+              2018,
+              2019,
+              2020,
+              2021,
+            ]
+      series:
+        - name: "Erwachsene Tiere"
+          stack: "Robben"
+          data:
+            [
+              1630,
+              16315,
+              17994,
+              16249,
+              16049,
+              18479,
+              18073,
+              17848,
+              24298,
+              14656,
+              22052,
+              21657,
+              28117,
+              33110,
+              19024,
+              20991,
+              28381,
+              26979,
+              34201,
+              28855,
+              37156,
+              41277,
+              38757,
+              42089,
+              44441,
+              49840,
+              49185,
+              23831,
+              26429,
+              16468,
+              24825,
+              26696,
+              24440,
+            ]
+        - name: "Jungtiere"
+          stack: "Robben"
+          data:
+            [
+              56,
+              1083,
+              881,
+              1723,
+              1071,
+              1516,
+              1621,
+              989,
+              3517,
+              1173,
+              3084,
+              2110,
+              5021,
+              4467,
+              3565,
+              4682,
+              5805,
+              3855,
+              3348,
+              5180,
+              4716,
+              6757,
+              7772,
+              5848,
+              8100,
+              7503,
+              9115,
+              10134,
+              11736,
+              7470,
+              10691,
+              12517,
+              11138,
+            ]
+    topicLayer:
+      url: https://mdi-sh.org/geoserver_lkn/Kegelrobben_Ruheplaetze/wms
+      layers: Kegelrobben_Ruheplaetze_ab1989
+  -   content: '<iframe title="seagull" width="500" height="315" src="https://peertube.tv/videos/embed/cfbbbe2e-ebe4-4e3b-a925-b21568d56e5f" frameborder="0" allowfullscreen="" sandbox="allow-same-origin allow-scripts allow-popups"></iframe>' # example video
+      attribution: https://peertube.tv/w/rDNErkH5CB9tBAVhazXkAX
+      center: [927027,7292103]
+      zoom: 12
+      baseLayer: sentinel-rgb
+  - content: "Süderoogsand ![Süderoogsand](https://upload.wikimedia.org/wikipedia/commons/e/e7/13-09-29-nordfriesisches-wattenmeer-RalfR-19.jpg)"
+    attribution: "Von Ralf Roletschek - Eigenes Werk, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=28842149"
+    center: [945258, 7256627]
+    zoom: 12
+    baseLayer: sentinel-rgb
+    topicLayer:
+      url: https://mdi-dienste.baw.de/geoserver/SMMS_Bathymetrie/wms
+      layers: SMMS_25832_Bathym_2020_DGM_10m
+      attribution: Bundesanstalt für Wasserbau CC BY 4.0
+    highlight:
+      coordinates: [945258, 7256627]
+      strokeColor: red
+      strokeWidth: 3
+      name: Süderoogsang
+  - content: DataLayer (Clustering)
+    center: [927027, 7292103]
+    zoom: 10
+    baseLayer: sentinel-rgb
+    dataLayer:
+      url: ./seal_count_data.geojson

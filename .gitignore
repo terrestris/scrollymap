@@ -1,5 +1,8 @@
 /node_modules/
 /public/build/
+dist
+.env
+public/storyBoard-local.yml
 
 .DS_Store
 .vscode
