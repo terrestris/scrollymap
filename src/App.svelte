@@ -1,65 +1,83 @@
 <script lang="ts">
   import { parse as parseYaml } from "yaml";
-  import Scrolly from "./Scrolly.svelte";
-  import Map from "./Map.svelte";
-  import Chart from "./Chart.svelte";
+  import Scrolly from "./components/Scrolly.svelte";
+  import Map from "./components/Map.svelte";
+  import Chart from "./components/Chart.svelte";
   import { step } from "./store/step";
   import { marked } from "marked";
+  import Header from "./components/Header.svelte";
+
+  import type { Config } from "./types";
+
 
   /* By Connor Rothschild https://twitter.com/CL_Rothschild
-	Scrollytelling component from Russell Goldenberg https://twitter.com/codenberg/status/1432774653139984387 */
+	Scrollytelling component from Russell Goldenberg https://twitter.com/codenberg/status/1432774653139984387
+  https://svelte.dev/repl/82181dc9c8c04053a7ebabd03c654d1d?version=4.0.1 */
 
   // read config
-  const promise = fetch("/example/storyBoard.yml").then((response) =>
-    response.text().then((text) => parseYaml(text)),
-  );
-
+  const getConfig = () => {
+    const url = new URL(window.location.href);
+    const path = url.searchParams.get("config");
+    if (!path) {
+      console.error("No config path defined.");
+    }
+    return path;
+  };
+  const path = getConfig();
+  const promise = fetch(path)
+    .then((response) => response.text())
+    .then((text) => parseYaml(text) as Config)
+  // TODO error handling
+  // .catch((error) => {
+  //   console.error(error);
+  //   throw new Error("error")
+  // });
 </script>
 
-{#await promise then config}
-  <div class="map">
-    <Map {config} />
+{#if !path}
+  <div class="error">
+    Please define config path as search param, e.g. ?config=/public/conf.yaml
   </div>
-  <section>
-    <div class="hero">
+{:else}
+  {#await promise}
+    <div class="error">Waiting</div>
+  {:then config}
+    <div class="map">
+      <Map steps={config.steps} />
+    </div>
+    <section>
       {#if config.title}
-        <h1>
-          {config.title}
-        </h1>
+        <Header title={config.title} subTitle={config.subTitle} />
       {/if}
-      {#if config.subTitle}
-        <h2>
-          {config.subTitle}
-        </h2>
-        <hr />
-      {/if}
-    </div>
-    <div class="section-container">
-      <div class="steps-container">
-        <Scrolly bind:value={$step}>
-          {#each config.steps as text, i}
-            <div class="step" class:active={$step === i}>
-              <div class="step-content">
-                {#if text.content}
-                  {@html marked.parse(text.content)}
-                {:else if text.chart}
-                  <Chart {config} />
-                {/if}
-                {#if text.attribution}
-                  <span class="attribution">{@html text.attribution}</span>
-                {/if}
-              </div><p/>
-            </div>
-          {/each}
-          <div class="spacer" />
-        </Scrolly>
+      <div class="section-container">
+          <Scrolly bind:value={$step}>
+            {#each config.steps as s, i}
+              <div class="step" class:active={$step === i}>
+                <div class="step-content">
+                  {#if s.content}
+                    {@html marked.parse(s.content)}
+                  {:else if s.chart}
+                    <Chart config={s.chart} />
+                  {/if}
+                  {#if s.attribution}
+                    <span class="attribution">{@html s.attribution}</span>
+                  {/if}
+                </div>
+                <p />
+              </div>
+              {/each}
+              <!-- <div class="spacer" /> -->
+          </Scrolly>
       </div>
-    </div>
-  </section>
-{/await}
+    </section>
+    <!-- TODO error handling    
+       {:catch error}
+    <p>{error.message}</p> -->
+  {/await}
+{/if}
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Rosario:ital,wght@0,300..700;1,300..700&display=swap');
+<style lang="scss">
+  @import url("https://fonts.googleapis.com/css2?family=Rosario:ital,wght@0,300..700;1,300..700&display=swap");
 
   :global(body) {
     overflow-x: hidden;
@@ -67,6 +85,13 @@
     font-optical-sizing: auto;
     background: #ffffff;
     margin: 0;
+  }
+
+  :global(.error) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
 
   :global(.step-content img) {
@@ -77,56 +102,24 @@
     font-size: 0.75rem;
   }
 
-  .hero {
-    height: 20vh;
-    display: flex;
-    place-items: center;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    background: rgba(255,255,255,0.9);
-  }
-  .hero hr {
-    width: 90%;
-  }
-  .hero h1 {
-    margin-top: 0;
-    font-weight: 800;
-    font-size: xxx-large;
-  }
-
-  .hero h2 {
-    margin-top: 0;
-    font-weight: 200;
-    font-size: x-large;
-  }
-
-  .spacer {
-    height: 40vh;
-  }
+  // .spacer {
+  //   height: 25vh;
+  // }
 
   .map {
     position: fixed;
-    /* top: 20vh; */
-    width: calc(100vw); /** body padding + scrollbar width */
-    height: calc(100vh);
-    z-index: -10
+    width: 100vw;
+    height: 100vh;
+    z-index: -10;
   }
 
   .section-container {
-    width: 30vw;
-    margin-top: 1em;
-    text-align: center;
-    transition: background 100ms;
-    display: flex;
+    width: 33vw;
   }
 
   .step {
-    height: 100vh;
+    height: 125vh;
     display: flex;
-    place-items: center;
-    justify-content: center;
-    flex-direction: column;
   }
 
   .step-content {
@@ -140,21 +133,13 @@
     justify-content: center;
     transition: background 500ms ease;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
-    text-align: left;
-    /* width: 75%; */
     margin: auto;
-    max-width: 500px;
+    max-width: 28vw;
   }
 
   .step.active .step-content {
     background: white;
     color: black;
-  }
-
-  .steps-container {
-    height: 100%;
-    flex: 1 1 30%;
-    z-index: 10;
   }
 
   /* Comment out the following line to always make it 'text-on-top' */
