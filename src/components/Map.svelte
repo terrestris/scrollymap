@@ -29,7 +29,7 @@
 
     // Functions
     const setupMap = (node: HTMLElement) => {
-        baseLayer = getBaseLayerByName("sentinel-rgb");
+        baseLayer = getBaseLayerByName("osm");
         map = new Map({
             controls: [
                 new Attribution({
