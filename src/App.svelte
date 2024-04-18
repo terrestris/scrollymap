@@ -28,19 +28,20 @@
     .then((response) => response.text())
     .then((text) => parseYaml(text) as Config)
   // TODO error handling
-  // .catch((error) => {
-  //   console.error(error);
-  //   throw new Error("error")
-  // });
+
+  const basePath = location.origin + location.pathname;
 </script>
 
 {#if !path}
   <div class="error">
-    Please define config path as search param, e.g. ?config=/public/conf.yaml
+    <div>
+      <p>Please define config path as search param, e.g.:</p>
+      <a href="{basePath}?config=/scrollymap/storyBoard.yml"> {basePath}?config=/scrollymap/storyBoard.yaml</a>
+    </div>
   </div>
 {:else}
   {#await promise}
-    <div class="error">Waiting</div>
+    <div>Waiting</div>
   {:then config}
     <div class="map">
       <Map steps={config.steps} />
@@ -70,7 +71,7 @@
           </Scrolly>
       </div>
     </section>
-    <!-- TODO error handling    
+    <!-- TODO error handling
        {:catch error}
     <p>{error.message}</p> -->
   {/await}
