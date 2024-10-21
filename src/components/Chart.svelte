@@ -10,7 +10,6 @@
     import { BarChart } from "echarts/charts";
     import { CanvasRenderer } from "echarts/renderers";
     import { echartOption } from "../constants/chartConfig";
-    // import type { EChartsOption } from "echarts"; // For typing ECharts options
 
     echarts.use([
         TitleComponent,
@@ -31,6 +30,7 @@
 
     export let config: Config;
 
+    // TODO use echart types here
     let option: any = { ...echartOption }; // Use EChartsOption to type the option
 
     let chartId: string = "";
