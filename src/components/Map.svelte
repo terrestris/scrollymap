@@ -4,6 +4,7 @@
     // OpenLayers
     import Map from "ol/Map";
     import View from "ol/View";
+    import Layer from "ol/layer/Layer";
     // Utils
     import { initTopicLayer, updateTopicLayer } from "../util/topicLayer";
     import {
@@ -21,15 +22,15 @@
     export let steps: StepConfigList;
 
     // Local state
-    let map = null;
-    let baseLayer;
-    let topicLayer;
-    let highlightLayer;
-    let dataLayer;
+    let map: Map | null = null;
+    let baseLayer: Layer | undefined;
+    let topicLayer: Layer | undefined;
+    let highlightLayer: Layer | undefined;
+    let dataLayer: Layer | undefined;
 
     // Functions
     const setupMap = (node: HTMLElement) => {
-        baseLayer = getBaseLayerByName("osm");
+        baseLayer = getBaseLayerByName("osm") as Layer;
         map = new Map({
             controls: [
                 new Attribution({
@@ -47,7 +48,7 @@
         return {
             destroy() {
                 if (map) {
-                    map.setTarget(null);
+                    map.setTarget(undefined);
                     map = null;
                 }
             },
@@ -74,6 +75,7 @@
             }
         }
     }
+    
     // apply and render step config
     step.subscribe((stepValue) => {
         if (stepValue >= 0 && map && steps) {
@@ -84,33 +86,33 @@
             // apply baselayer
             if (
                 currentConfig.baseLayer &&
-                currentConfig.baseLayer !== baseLayer.get("name")
+                currentConfig.baseLayer !== baseLayer?.get("name")
             ) {
                 const newSource = getBaseLayerByName(
-                    currentConfig.baseLayer,
+                    currentConfig.baseLayer as string,
                 )?.getSource();
                 const mapLayer = map
                     .getAllLayers()
-                    .filter((l) => l.get("id") === "baseLayer")[0];
+                    .filter((l) => l.get("id") === "baseLayer")[0] as Layer;
                 mapLayer?.setSource(newSource);
                 mapLayer.set("name", currentConfig.baseLayer);
             }
             // apply topicLayer
-            if (currentConfig.topicLayer) {
+            if (currentConfig.topicLayer && topicLayer) {
                 updateTopicLayer(currentConfig.topicLayer, topicLayer);
                 topicLayer.setVisible(true);
-            } else {
+            } else if (topicLayer) {
                 topicLayer.setVisible(false);
             }
             // apply dataLayer
-            if (currentConfig.dataLayer) {
+            if (currentConfig.dataLayer && dataLayer) {
                 updateDataLayer(currentConfig, dataLayer);
                 dataLayer.setVisible(true);
             } else if (dataLayer) {
                 dataLayer.setVisible(false);
             }
             // apply highlighting
-            if (currentConfig.highlight) {
+            if (currentConfig.highlight && highlightLayer) {
                 updateHighlightLayer(currentConfig.highlight, highlightLayer);
                 highlightLayer.setVisible(true);
             } else if (highlightLayer) {
@@ -122,7 +124,7 @@
     });
 </script>
 
-<div id={mapId} class="map" use:setupMap />
+<div id={mapId} class="map" use:setupMap> </div>
 
 <style>
     .map {

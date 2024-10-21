@@ -3,7 +3,7 @@ import TileWMS from "ol/source/TileWMS";
 import { defaultBaseLayers } from "../constants/baseLayers";
 import OSM from "ol/source/OSM";
 
-export const getBaseLayerByName = (name) => {
+export const getBaseLayerByName = (name: string) => {
     if (name === "osm") {
         const osmLayer = new TileLayer({
             source: new OSM()

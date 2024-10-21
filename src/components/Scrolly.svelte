@@ -1,41 +1,31 @@
-<script>
-  /**
-	Scrollytelling component from Russell Goldenberg 
-  https://svelte.dev/repl/3d3736e634c9404ea8ec2ef7b87e2053?version=3.42.4
-	
-   * This component manages which item is most in view for scroll triggering
-   * example:
-   * <Scroll
-   * 	bind:value={scrollIndex}
-   * >
-   * **items here**
-   * </Scroll>
-   *
-   * optional params with defaults
-   * <Scroll root={null} top={0} bottom={0} increments={100}>
-   */
+<script lang="ts">
   import { onMount } from "svelte";
-  export let root = null;
-  export let top = 0;
-  export let bottom = 0;
-  export let increments = 100;
-  export let value = 0;
+  
+  // Define prop types
+  export let root: HTMLElement | null = null;
+  export let top: number = 0;
+  export let bottom: number = 0;
+  export let increments: number = 100;
+  export let value: number = 0;
 
-  const steps = [];
-  const threshold = [];
+  // Local variables with specific types
+  const steps: number[] = [];
+  const threshold: number[] = [];
+  let nodes: NodeListOf<HTMLElement> = document.querySelectorAll('.dummySelector'); // Initialize with an empty NodeList
+  let intersectionObservers: IntersectionObserver[] = [];
+  let container!: HTMLElement; // "!" asserts that container will be initialized later
 
-  let nodes = [];
-  let intersectionObservers = [];
-  let container;
-
+  // Watch for changes in 'top' or 'bottom' and trigger update
   $: top, bottom, update();
 
-  const update = () => {
+  // Update function to create observers for each node
+  const update = (): void => {
     if (!nodes.length) return;
-    nodes.forEach(createObserver);
+    nodes.forEach((node, index) => createObserver(node, index));
   };
 
-  const mostInView = () => {
+  // Function to determine which item is most in view
+  const mostInView = (): void => {
     let maxRatio = 0;
     let maxIndex = 0;
     for (let i = 0; i < steps.length; i++) {
@@ -45,14 +35,13 @@
       }
     }
 
-    if (maxRatio > 0) value = maxIndex;
-		else value = 0;
+    value = maxRatio > 0 ? maxIndex : 0;
   };
 
-  const createObserver = (node, index) => {
-    const handleIntersect = (e) => {
-      const intersecting = e[0].isIntersecting;
-      const ratio = e[0].intersectionRatio;
+  // Function to create an observer for a node
+  const createObserver = (node: HTMLElement, index: number): void => {
+    const handleIntersect = (entries: IntersectionObserverEntry[]): void => {
+      const ratio = entries[0].intersectionRatio;
       steps[index] = ratio;
       mostInView();
     };
@@ -60,7 +49,7 @@
     const marginTop = top ? top * -1 : 0;
     const marginBottom = bottom ? bottom * -1 : 0;
     const rootMargin = `${marginTop}px 0px ${marginBottom}px 0px`;
-    const options = { root, rootMargin, threshold };
+    const options: IntersectionObserverInit = { root, rootMargin, threshold };
 
     if (intersectionObservers[index]) intersectionObservers[index].disconnect();
 
@@ -69,11 +58,13 @@
     intersectionObservers[index] = io;
   };
 
-  onMount(() => {
+  // onMount to set up the component after it mounts
+  onMount((): void => {
     for (let i = 0; i < increments + 1; i++) {
       threshold.push(i / increments);
     }
-    nodes = container.querySelectorAll(":scope > *");
+    // Query all child elements
+    nodes = container.querySelectorAll(":scope > *") as NodeListOf<HTMLElement>;
     update();
   });
 </script>
