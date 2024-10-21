@@ -1,14 +1,12 @@
 <script lang="ts">
-  import { parse as parseYaml } from "yaml";
-  import Scrolly from "./components/Scrolly.svelte";
-  import Map from "./components/Map.svelte";
   import Chart from "./components/Chart.svelte";
-  import { step } from "./store/step";
-  import { marked } from "marked";
   import Header from "./components/Header.svelte";
-
+  import Map from "./components/Map.svelte";
+  import Scrolly from "./components/Scrolly.svelte";
   import type { Config } from "./types";
-
+  import { marked } from "marked";
+  import { parse as parseYaml } from "yaml";
+  import { step } from "./store/step";
 
   /* By Connor Rothschild https://twitter.com/CL_Rothschild
 	Scrollytelling component from Russell Goldenberg https://twitter.com/codenberg/status/1432774653139984387
@@ -20,14 +18,18 @@
     const path = url.searchParams.get("config");
     if (!path) {
       console.error("No config path defined.");
+      return;
     }
     return path;
   };
   const path = getConfig();
-  const promise = fetch(path)
-    .then((response) => response.text())
-    .then((text) => parseYaml(text) as Config)
-  // TODO error handling
+  let promise: any;
+  if (path) {
+    promise = fetch(path)
+      .then((response) => response.text())
+      .then((text) => parseYaml(text) as Config)
+    // TODO error handling
+  }
 
   const basePath = location.origin + location.pathname;
 </script>
@@ -64,7 +66,7 @@
                     <span class="attribution">{@html s.attribution}</span>
                   {/if}
                 </div>
-                <p />
+                <p></p>
               </div>
               {/each}
               <!-- <div class="spacer" /> -->

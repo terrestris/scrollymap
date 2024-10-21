@@ -1,16 +1,17 @@
+import Circle from "ol/style/Circle";
+import Cluster from "ol/source/Cluster";
+import type { FeatureLike } from "ol/Feature";
+import Fill from "ol/style/Fill";
+import GeoJSON from "ol/format/GeoJSON";
 import OlVectorLayer from "ol/layer/Vector";
 import OlVectorSource from "ol/source/Vector";
-import Cluster from "ol/source/Cluster";
-import Circle from "ol/style/Circle";
-import Style from "ol/style/Style";
 import Stroke from "ol/style/Stroke";
-import Fill from "ol/style/Fill";
+import Style from "ol/style/Style";
 import Text from "ol/style/Text";
-import GeoJSON from "ol/format/GeoJSON";
 
-const styleCache = [];
+const styleCache: any[] = [];
 
-export const updateDataLayer = (config, dataLayer) => {
+export const updateDataLayer = (config: any, dataLayer: any) => {
     dataLayer.getSource().getSource().setUrl(config.dataLayer.url);
 }
 export const initDataLayer = () => {
@@ -24,7 +25,7 @@ export const initDataLayer = () => {
         source: vectorSource,
     });
 
-    const styleFunction = feature => {
+    const styleFunction = (feature: FeatureLike) => {
         const size = feature.get('features').length;
         let style = styleCache[size];
         if (!style) {

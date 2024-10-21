@@ -10,7 +10,7 @@ import Stroke from "ol/style/Stroke";
 import Fill from "ol/style/Fill";
 import Text from "ol/style/Text";
 
-export const updateHighlightLayer = (config, highlightLayer) => {
+export const updateHighlightLayer = (config: any, highlightLayer: any) => {
     const geom = new OlPoint(config.coordinates);
     const bufferExtent = buffer(geom.getExtent(), 5000);
     const polygon = fromExtent(bufferExtent);

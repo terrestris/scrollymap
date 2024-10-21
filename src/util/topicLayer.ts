@@ -1,7 +1,7 @@
 import TileLayer from "ol/layer/Tile";
 import TileWMS from "ol/source/TileWMS";
 
-export const updateTopicLayer = (config, topicLayer) => {
+export const updateTopicLayer = (config: any, topicLayer: any) => {
     const params = topicLayer.getSource().getParams();
     params.LAYERS = config.layers;
     params.time = config.time;

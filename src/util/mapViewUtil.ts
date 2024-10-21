@@ -1,6 +1,7 @@
+import type { View } from 'ol';
 import {upAndDown} from 'ol/easing';
 
-export const updateView = (config, view) => {
+export const updateView = (config: any, view: View) => {
     if (!config || !view) {
         return;
     }

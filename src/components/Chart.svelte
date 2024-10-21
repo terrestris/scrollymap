@@ -21,11 +21,19 @@
         CanvasRenderer,
     ]);
 
-    export let config;
+    // Define type for the config prop
+    interface Config {
+        title: string;
+        xAxisData: Array<any>;  // Define a more specific type if you know the structure
+        series: Array<any>;     // Define a more specific type if you know the structure
+    }
 
-    let option;
+    export let config: Config;
 
-    let chartId: string;
+    // TODO use echart types here
+    let option: any = { ...echartOption }; // Use EChartsOption to type the option
+
+    let chartId: string = "";
 
     $: {
         if (config) {
@@ -36,13 +44,17 @@
     const setupChart = (node: HTMLElement) => {
         if (config) {
             // create chart config
-            option = echartOption;
-            option.title.text = config.title;
+            option = { ...echartOption };  // Ensure a new instance is created
+            option.title = { text: config.title }; // Ensure the title is typed correctly
+            option.xAxis = [];  // Ensure the xAxis is reset before pushing data
+
             config.xAxisData.forEach(data => {
-                option.xAxis.push(data);
+                option.xAxis?.push(data);
             });
+
+            option.series = [];  // Reset the series before adding data
             config.series.forEach((serie) => {
-                option.series.push({
+                option.series?.push({
                     ...serie,
                     type: "bar",
                     emphasis: {
@@ -50,15 +62,16 @@
                     },
                 });
             });
+
             // init chart
             const echart = echarts.init(node);
             // apply chart option
             echart && option && echart.setOption(option);
         }
-    }
+    };
 </script>
 
-<div id={chartId} class="chart" use:setupChart >chart</div>
+<div id={chartId} class="chart" use:setupChart>chart</div>
 
 <style>
     .chart {
